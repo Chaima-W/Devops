@@ -56,15 +56,15 @@ services:
     restart: unless-stopped
     environment:
       - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=achat_db
+      - MYSQL_DATABASE=foyer
     ports:
       - "3307:3306"
     volumes:
       - db:/var/lib/mysql
 
   # --- Spring Boot App ---
-  achat-app:
-    image: chaimaouertani/achat-image:1.0.0
+  foyer-app:
+    image: chaimaouertani/foyer-image:1.0.0
     depends_on:
       - mysqldb
     restart: on-failure
