@@ -34,7 +34,7 @@ pipeline {
         stage('Analyse SonarQube') {
             steps {
                 echo '🔍 Analyse de la qualité du code avec SonarQube...'
-                sh 'mvn sonar:sonar -Dsonar.projectKey=foyer -Dsonar.host.url=http://localhost:9000 -Dsonar.login=admin -Dsonar.password=sonar'
+                sh 'mvn sonar:sonar -Dsonar.projectKey=foyer -Dsonar.host.url=http://localhost:9000 -Dsonar.login=admin -Dsonar.password=Chaimawertani@52'
             }
         }
 
