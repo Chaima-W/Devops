@@ -51,14 +51,19 @@ pipeline {
                 sh "docker build -t ${DOCKER_IMAGE} ."
             }
         }
-
-        stage('Docker Push') {
-            steps {
-                echo '📤 Push de l’image sur Docker Hub...'
-                sh "echo ${DOCKERHUB_PASSWORD} | docker login -u ${DOCKERHUB_USER} --password-stdin"
-                sh "docker push ${DOCKER_IMAGE}"
+stage('Docker Push') {
+    steps {
+        script {
+            withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                sh '''
+                echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
+                docker push chaimawertani/foyer:1.1.0
+                '''
             }
         }
+    }
+}
+
 
         stage('Déploiement avec Docker Compose') {
             steps {
