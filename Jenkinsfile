@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE = 'chaimawertani/foyer:1.0.0'
+        DOCKER_IMAGE = 'chaimawertani/foyer:1.1.0'
         DOCKERHUB_USER = 'chaimaWertani'
         DOCKERHUB_PASSWORD = 'chaima@52'
     }

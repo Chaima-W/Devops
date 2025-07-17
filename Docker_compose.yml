@@ -60,7 +60,7 @@ services:
       - db:/var/lib/mysql
 
   foyer-app:
-    image: chaimawertani/foyer:1.0.0
+    image: chaimawertani/foyer:1.1.0
     depends_on:
       - mysqldb
     restart: on-failure
