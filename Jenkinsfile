@@ -1,64 +1,72 @@
 pipeline {
     agent any
 
+    environment {
+        DOCKER_IMAGE = 'chaimaouertani/foyer:1.0.0'
+        DOCKERHUB_USER = 'chaimaWertani'
+        DOCKERHUB_PASSWORD = 'chaima@52'
+    }
+
     stages {
-        stage('Git') {
+
+        stage('Git Checkout') {
             steps {
-                echo 'Recup Code de Git : ';
-                git branch : 'master',
-                url :'https://github.com/Chaima-W/Devops.git';
+                echo '📦 Récupération du code source depuis Git...'
+                git branch: 'master',
+                    url: 'https://github.com/Chaima-W/Devops.git'
             }
         }
 
         stage('Maven Clean') {
             steps {
-                echo 'Nettoyage du Projet : ';
-                sh 'mvn clean';
+                echo '🧹 Nettoyage du projet Maven...'
+                sh 'mvn clean'
             }
         }
 
         stage('Maven Compile') {
             steps {
-                echo 'Construction du Projet : ';
-                sh 'mvn compile';
+                echo '🔧 Compilation du projet...'
+                sh 'mvn compile'
             }
         }
 
-        stage('SonarQue') {
+        stage('Analyse SonarQube') {
             steps {
-                echo 'Analyse de la Qualité du Code : ';
-                sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar';
+                echo '🔍 Analyse de la qualité du code avec SonarQube...'
+                sh 'mvn sonar:sonar -Dsonar.projectKey=foyer -Dsonar.host.url=http://sonarqube:9000 -Dsonar.login=admin -Dsonar.password=sonar'
             }
         }
 
         stage('Maven Package') {
             steps {
-                echo 'Création du livrable : ';
-                sh 'mvn package -DskipTests';
+                echo '📦 Création du livrable (JAR)...'
+                sh 'mvn package -DskipTests'
             }
         }
 
-        stage('Image') {
+        stage('Docker Build') {
             steps {
-                echo 'Création Image : ';
-                sh 'docker build -t chaimaouertani/foyer:1.0.0 .';
+                echo '🐳 Construction de l’image Docker...'
+                sh "docker build -t ${DOCKER_IMAGE} ."
             }
         }
 
-        stage('Dockerhub') {
+        stage('Docker Push') {
             steps {
-                echo 'Push Image to dockerhub : ';
-                sh 'docker login -u chaimaWertani -p chaima@52';
-                sh 'docker push chaimaouertani/foyer:1.0.0 ';
+                echo '📤 Push de l’image sur Docker Hub...'
+                sh "echo ${DOCKERHUB_PASSWORD} | docker login -u ${DOCKERHUB_USER} --password-stdin"
+                sh "docker push ${DOCKER_IMAGE}"
             }
         }
 
-        stage('Docker-Compose') {
+        stage('Déploiement avec Docker Compose') {
             steps {
-                echo 'Staet Backend + DB : ';
-                sh 'docker compose up -d';
+                echo '🚀 Déploiement de l’application avec docker-compose...'
+                sh 'docker compose down -v --remove-orphans'
+                sh 'docker compose up -d'
             }
-        }
 
+        }
     }
 }
