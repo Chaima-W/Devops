@@ -34,7 +34,7 @@ pipeline {
         stage('Analyse SonarQube') {
             steps {
                 echo '🔍 Analyse de la qualité du code avec SonarQube...'
-                sh 'mvn sonar:sonar -Dsonar.projectKey=foyer -Dsonar.host.url=http://localhost:9000 -Dsonar.login=sqa_ba1a528ca3c90c207150c059a310eb0c49a34b36 '
+                sh 'mvn sonar:sonar -Dsonar.projectKey=foyer -Dsonar.host.url=http://localhost:9000 -Dsonar.login=sqa_e39cbe3e5b06ea55260dcd7a12d302312043c944 '
             }
         }
 
