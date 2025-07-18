@@ -32,13 +32,33 @@ pipeline {
                 sh 'mvn compile'
             }
         }
-        stage('JUnit Tests') {
-            steps {
-                echo '🧪 Running unit tests with JUnit...'
-                    sh 'mvn test'
+           stage('Maven Clean') {
+                  steps {
+                      echo '🧹 Nettoyage du projet Maven...'
+                      sh 'mvn clean'
+                  }
+              }
 
-            }
-        }
+              stage('Maven Compile') {
+                  steps {
+                      echo '🔧 Compilation du projet...'
+                      sh 'mvn compile'
+                  }
+              }
+              stage('JUnit Tests') {
+                  steps {
+                      echo '🧪 Running unit tests with JUnit...'
+                      dir('Foyer2425-main') {
+                          sh 'mvn test'
+                      }
+                  }
+              }
+              stage('Analyse SonarQube') {
+                  steps {
+                      echo '🔍 Analyse de la qualité du code avec SonarQube...'
+                      sh 'mvn sonar:sonar -Dsonar.projectKey=foyer -Dsonar.host.url=http://localhost:9000 -Dsonar.login=sqa_3fe35e46ef1762a018a04b8c74dcb053cf153d0d '
+                  }
+              }
         stage('Analyse SonarQube') {
             steps {
                 echo '🔍 Analyse de la qualité du code avec SonarQube...'
