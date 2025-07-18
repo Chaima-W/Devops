@@ -14,15 +14,18 @@ pipeline {
                 echo '📦 Récupération du code source depuis Git...'
                 git branch: 'master',
                     url: 'https://github.com/Chaima-W/Devops.git'
-                    sh 'ls -R'
             }
         }
-
+stage('Verify files') {
+      steps {
+        sh 'pwd'
+        sh 'ls -la'
+      }
+    }
         stage('Maven Clean') {
             steps {
                 echo '🧹 Nettoyage du projet Maven...'
                 sh 'mvn clean'
-                sh 'ls -R'
             }
         }
 
@@ -32,37 +35,18 @@ pipeline {
                 sh 'mvn compile'
             }
         }
-           stage('Maven Clean') {
-                  steps {
-                      echo '🧹 Nettoyage du projet Maven...'
-                      sh 'mvn clean'
-                  }
-              }
-
-              stage('Maven Compile') {
-                  steps {
-                      echo '🔧 Compilation du projet...'
-                      sh 'mvn compile'
-                  }
-              }
-              stage('JUnit Tests') {
-                  steps {
-                      echo '🧪 Running unit tests with JUnit...'
-                      dir('Foyer2425-main') {
-                          sh 'mvn test'
-                      }
-                  }
-              }
-              stage('Analyse SonarQube') {
-                  steps {
-                      echo '🔍 Analyse de la qualité du code avec SonarQube...'
-                      sh 'mvn sonar:sonar -Dsonar.projectKey=foyer -Dsonar.host.url=http://localhost:9000 -Dsonar.login=sqa_3fe35e46ef1762a018a04b8c74dcb053cf153d0d '
-                  }
-              }
+stage('JUnit Tests') {
+            steps {
+                echo '🧪 Running unit tests with JUnit...'
+                dir('Foyer2425-main') {
+                    sh 'mvn test'
+                }
+            }
+        }
         stage('Analyse SonarQube') {
             steps {
                 echo '🔍 Analyse de la qualité du code avec SonarQube...'
-                sh 'mvn sonar:sonar -Dsonar.projectKey=foyer -Dsonar.host.url=http://localhost:9000 -Dsonar.login=sqa_3fe35e46ef1762a018a04b8c74dcb053cf153d0d '
+                sh 'mvn sonar:sonar -Dsonar.projectKey=foyer -Dsonar.host.url=http://localhost:9000 -Dsonar.login=sqa_e39cbe3e5b06ea55260dcd7a12d302312043c944 '
             }
         }
 
