@@ -45,6 +45,17 @@ pipeline {
             }
         }
 
+       stage('Deploy Artifact to Nexus') {
+           steps {
+               withCredentials([usernamePassword(credentialsId: 'nexus-maven-creds', usernameVariable: 'NEXUS_USERNAME', passwordVariable: 'NEXUS_PASSWORD')]) {
+                   configFileProvider([configFile(fileId: 'maven-settings', variable: 'MAVEN_SETTINGS')]) {
+                       sh 'mvn deploy -s $MAVEN_SETTINGS'
+                   }
+               }
+           }
+       }
+
+
         stage('Docker Build') {
             steps {
                 echo '🐳 Construction de l’image Docker...'
@@ -57,7 +68,7 @@ stage('Docker Push') {
             withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
                 sh '''
                 echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
-                docker push chaimawertani/foyer:1.1.0
+                docker push ${DOCKER_IMAGE}
                 '''
             }
         }
