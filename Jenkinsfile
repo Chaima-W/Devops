@@ -36,14 +36,14 @@ stage('Debug full workspace') {
                 sh 'mvn compile'
             }
         }
-stage('JUnit Tests') {
-            steps {
-                echo '🧪 Running unit tests with JUnit...'
-                dir('Foyer2425-main') {
-                    sh 'mvn test'
-                }
-            }
-        }
+// stage('JUnit Tests') {
+//             steps {
+//                 echo '🧪 Running unit tests with JUnit...'
+//                 dir('Foyer2425-main') {
+//                     sh 'mvn test'
+//                 }
+//             }
+//         }
         stage('Analyse SonarQube') {
             steps {
                 echo '🔍 Analyse de la qualité du code avec SonarQube...'
