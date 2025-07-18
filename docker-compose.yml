@@ -54,7 +54,7 @@ services:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=foyer
     ports:
-      - "3307:3306"  # ⚠️ Port changé pour éviter conflit avec local
+      - "3308:3306"  # ⚠️ Port changé pour éviter conflit avec local
     volumes:
       - db:/var/lib/mysql
 
