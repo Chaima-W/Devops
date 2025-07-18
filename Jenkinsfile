@@ -92,8 +92,8 @@ stage('Docker Push') {
         stage('Déploiement avec Docker Compose') {
             steps {
                 echo '🚀 Déploiement de l’application avec docker-compose...'
-                sh 'docker-compose -p foyer2425-main down -v --remove-orphans'
-//                 sh 'docker-compose -p foyer2425-main up -d'
+//                    sh 'docker-compose -p foyer2425-main down -v --remove-orphans'
+                 sh 'docker-compose -p foyer2425-main up -d'
             }
 
         }
