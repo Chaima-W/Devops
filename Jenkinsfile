@@ -33,9 +33,9 @@ pipeline {
         stage('JUnit Tests') {
             steps {
                 echo '🧪 Running unit tests with JUnit...'
-                dir('Foyer2425-main') {
+
                     sh 'mvn test'
-                }
+
             }
         }
         stage('Analyse SonarQube') {
