@@ -14,6 +14,7 @@ pipeline {
                 echo '📦 Récupération du code source depuis Git...'
                 git branch: 'master',
                     url: 'https://github.com/Chaima-W/Devops.git'
+                    sh 'ls -R'
             }
         }
 
@@ -21,6 +22,7 @@ pipeline {
             steps {
                 echo '🧹 Nettoyage du projet Maven...'
                 sh 'mvn clean'
+                sh 'ls -R'
             }
         }
 
@@ -33,7 +35,6 @@ pipeline {
         stage('JUnit Tests') {
             steps {
                 echo '🧪 Running unit tests with JUnit...'
-
                     sh 'mvn test'
 
             }
