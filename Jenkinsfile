@@ -47,7 +47,7 @@ stage('Debug full workspace') {
         stage('Analyse SonarQube') {
             steps {
                 echo '🔍 Analyse de la qualité du code avec SonarQube...'
-                sh 'mvn sonar:sonar -Dsonar.projectKey=foyer -Dsonar.host.url=http://localhost:9000 -Dsonar.login=sqa_3730e140d0ac48b6f13982c385c9fb724fe60b57'
+                sh 'mvn sonar:sonar -Dsonar.projectKey=foyer -Dsonar.host.url=http://localhost:9000 -Dsonar.login=sqa_aecfff7df965ca626dbaa2819b66b0cd93ebd1f9'
             }
         }
 
