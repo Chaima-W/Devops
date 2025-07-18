@@ -4,12 +4,14 @@ import org.junit.After;
 import org.junit.jupiter.api.*;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @TestMethodOrder(MethodOrderer.class)
 @SpringBootTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@ActiveProfiles("test")
 public class BlocServiceTest {
 
     @BeforeAll
