@@ -79,8 +79,8 @@ stage('Docker Push') {
         stage('Déploiement avec Docker Compose') {
             steps {
                 echo '🚀 Déploiement de l’application avec docker-compose...'
-                sh 'docker compose down -v --remove-orphans'
-                sh 'docker compose up -d'
+                sh 'docker-compose down -v --remove-orphans'
+                sh 'docker-compose up -d'
             }
 
         }
