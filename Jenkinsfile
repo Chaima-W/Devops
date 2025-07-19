@@ -47,7 +47,7 @@ stage('JUnit Tests') {
         stage('Analyse SonarQube') {
             steps {
                 echo '🔍 Analyse de la qualité du code avec SonarQube...'
-                sh 'mvn sonar:sonar -Dsonar.projectKey=foyer -Dsonar.host.url=http://localhost:9000 -Dsonar.login=sqa_aecfff7df965ca626dbaa2819b66b0cd93ebd1f9'
+                sh 'mvn sonar:sonar -Dsonar.projectKey=foyer -Dsonar.host.url=http://localhost:9000 -Dsonar.login=sqa_9b19451d38f167a04d031a8674f5351a88b75a6d'
             }
         }
 
